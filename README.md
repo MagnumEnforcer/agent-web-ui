@@ -133,7 +133,7 @@ CHROME_PERSISTENT_SESSION=true docker compose up --build
 ## Usage
 
 ### Local Setup
-1.  ** Request AWS token if you plan to use the AWS Bedrock provider.
+1.  Request AWS token if you plan to use the AWS Bedrock provider.
 2.  **Run the WebUI:**
     After completing the installation steps above, start the application:
     ```bash
