@@ -133,12 +133,13 @@ CHROME_PERSISTENT_SESSION=true docker compose up --build
 ## Usage
 
 ### Local Setup
-1.  **Run the WebUI:**
+1.  ** Request AWS token if you plan to use the AWS Bedrock provider.
+2.  **Run the WebUI:**
     After completing the installation steps above, start the application:
     ```bash
     python webui.py --ip 127.0.0.1 --port 7788
     ```
-2. WebUI options:
+3. WebUI options:
    - `--ip`: The IP address to bind the WebUI to. Default is `127.0.0.1`.
    - `--port`: The port to bind the WebUI to. Default is `7788`.
    - `--theme`: The theme for the user interface. Default is `Ocean`.
@@ -150,8 +151,8 @@ CHROME_PERSISTENT_SESSION=true docker compose up --build
      - **Citrus**: A vibrant, citrus-inspired palette with bright and fresh colors.
      - **Ocean** (default): A blue, ocean-inspired theme providing a calming effect.
    - `--dark-mode`: Enables dark mode for the user interface.
-3.  **Access the WebUI:** Open your web browser and navigate to `http://127.0.0.1:7788`.
-4.  **Using Your Own Browser(Optional):**
+4.  **Access the WebUI:** Open your web browser and navigate to `http://127.0.0.1:7788`.
+5.  **Using Your Own Browser(Optional):**
     - Set `CHROME_PATH` to the executable path of your browser and `CHROME_USER_DATA` to the user data directory of your browser. Leave `CHROME_USER_DATA` empty if you want to use local user data.
       - Windows
         ```env
@@ -167,7 +168,7 @@ CHROME_PERSISTENT_SESSION=true docker compose up --build
     - Close all Chrome windows
     - Open the WebUI in a non-Chrome browser, such as Firefox or Edge. This is important because the persistent browser context will use the Chrome data when running the agent.
     - Check the "Use Own Browser" option within the Browser Settings.
-5. **Keep Browser Open(Optional):**
+6. **Keep Browser Open(Optional):**
     - Set `CHROME_PERSISTENT_SESSION=true` in the `.env` file.
 
 ### Docker Setup

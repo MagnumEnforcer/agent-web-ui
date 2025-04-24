@@ -13,6 +13,7 @@ from langchain_mistralai import ChatMistralAI
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_ollama import ChatOllama
 from langchain_openai import AzureChatOpenAI, ChatOpenAI
+from langchain_aws import ChatBedrockConverse
 
 from .llm import DeepSeekR1ChatOpenAI, DeepSeekR1ChatOllama
 
@@ -24,7 +25,8 @@ PROVIDER_DISPLAY_NAMES = {
     "google": "Google",
     "alibaba": "Alibaba",
     "moonshot": "MoonShot",
-    "unbound": "Unbound AI"
+    "unbound": "Unbound AI",
+    "aws_anthropic": "AWS Anthropic"
 }
 
 
@@ -35,7 +37,7 @@ def get_llm_model(provider: str, **kwargs):
     :param kwargs:
     :return:
     """
-    if provider not in ["ollama"]:
+    if provider not in ["ollama", "aws_anthropic"]:
         env_var = f"{provider.upper()}_API_KEY"
         api_key = kwargs.get("api_key", "") or os.getenv(env_var, "")
         if not api_key:
@@ -183,6 +185,10 @@ def get_llm_model(provider: str, **kwargs):
             model_name=kwargs.get("model_name", "Qwen/QwQ-32B"),
             temperature=kwargs.get("temperature", 0.0),
         )
+    elif provider == "aws_anthropic":
+        return ChatBedrockConverse(model=kwargs.get("model_name", "us.anthropic.claude-3-5-sonnet-20241022-v2:0"),
+                                   temperature=kwargs.get("temperature", 0.0),
+                                   credentials_profile_name="dev")
     else:
         raise ValueError(f"Unsupported provider: {provider}")
 
@@ -233,6 +239,18 @@ model_names = {
         "Pro/Qwen/Qwen2-1.5B-Instruct",
         "Pro/THUDM/chatglm3-6b",
         "Pro/THUDM/glm-4-9b-chat",
+    ],
+    "aws_anthropic":[
+        "us.meta.llama3-1-8b-instruct-v1:0",
+        "us.meta.llama3-1-70b-instruct-v1:0",
+        "us.deepseek.r1-v1:0",
+        "us.anthropic.claude-3-7-sonnet-20250219-v1:0",
+        "us.anthropic.claude-3-5-sonnet-20241022-v2:0",
+        "us.anthropic.claude-3-5-sonnet-20240620-v1:0",
+        "us.anthropic.claude-3-5-haiku-20241022-v1:0",
+        "us.anthropic.claude-3-sonnet-20240229-v1:0",
+        "us.anthropic.claude-3-opus-20240229-v1:0",
+        "us.anthropic.claude-3-haiku-20240307-v1:0"
     ],
 }
 
